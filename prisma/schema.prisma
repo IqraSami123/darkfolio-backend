@@ -1,0 +1,62 @@
+// schema.prisma
+
+generator client {
+  provider = "prisma-client-py"
+}
+
+datasource db {
+  provider          = "postgresql"
+  url               = env("DATABASE_URL")
+  shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
+}
+
+
+model Experience {
+  id           Int      @id @default(autoincrement())
+  role         String
+  company      String
+  location     String
+  duration     String
+  type         String
+  description  String
+  achievements String[]   // Array of strings (Postgres only)
+  technologies String[]   // Array of strings
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+}
+
+
+model SkillCategory {
+  id          Int      @id @default(autoincrement())
+  title       String
+  description String
+  color       String
+  skills      String[]  // Array of skills
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+
+model ContactMessage {
+  id        Int      @id @default(autoincrement())
+  name      String
+  email     String
+  subject   String
+  message   String
+  createdAt DateTime @default(now())
+}
+
+
+model Project {
+  id          Int      @id @default(autoincrement())
+  title       String
+  description String
+  technologies String[]  // array of techs
+  imageUrl    String
+  githubUrl   String?
+  demoUrl     String?
+  featured    Boolean   @default(false)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
